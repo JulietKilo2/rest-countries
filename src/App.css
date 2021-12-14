@@ -35,7 +35,7 @@ section {
 
 .search-input {
   /* outline: 1px solid magenta; */
-  width: 30%;
+  width: 350px;
   background-color: white;
   border-radius: 8px;
   color: hsl(0, 0%, 52%);
@@ -65,37 +65,36 @@ section {
   font-size: 1rem;
   padding: 1rem;
 }
-/* 
-.search-input {
-  align-self: center;
-  width: 90%;
-  font-size: 16px;
+
+main {
+  margin-top: 2rem;
   display: flex;
-  align-items: center;
-  padding: 10px;
-  color: hsl(0, 0%, 52%);
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card-container {
+  width: 350px;
   background-color: white;
-  margin-top: 20px;
-  border-radius: 8px;
-  border-color: hsl(0, 0%, 52%);
+  margin-top: 4rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border: 8px;
+  border-radius: 10px;
+  line-height: 1.5;
+  cursor: pointer;
 }
 
-.search-input input {
-  font-size: 16px;
-  width: 100%;
-  border: none;
+.card-container img {
+  width: 350px;
+  max-width: 350px;
+  height: 220px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-.search-input .fas {
-  font-size: 16px;
-  background-color: white;
-  padding: 0 10px;
+.card-info {
+  padding-top: 0.5rem;
+  padding-left: 1.5rem;
+  padding-bottom: 2rem;
 }
-
-.filter-input {
-  margin-top: 20px;
-  margin-left: 10px;
-  padding: 10px;
-  font-size: 16px;
-  width: 90%;
-} */
