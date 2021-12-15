@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
+
 body {
   font-size: 14px;
   background-color: hsl(0, 0%, 98%);
+  font-family: "Nunito Sans", sans-serif;
 }
 
 h1 {
@@ -18,6 +21,7 @@ header {
   height: 50px;
   padding: 3rem 5rem;
   background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .darkmode-container {
@@ -34,17 +38,29 @@ section {
 }
 
 .search-input {
-  /* outline: 1px solid magenta; */
-  width: 350px;
+  width: 360px;
   background-color: white;
   border-radius: 8px;
-  color: hsl(0, 0%, 52%);
   display: flex;
   align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  color: hsl(0, 0%, 52%);
+}
+
+.search-input form {
+  width: 100%;
+  display: flex;
+}
+
+.search-input-btn {
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  color: hsl(0, 0%, 52%);
 }
 
 .search-input input {
-  width: 90%;
+  width: 100%;
   font-size: 1.25rem;
   padding: 1rem;
   border: none;
@@ -56,7 +72,7 @@ section {
 }
 
 .filter-input {
-  /* outline: 1px solid magenta; */
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .filter-input select {
@@ -83,6 +99,8 @@ main {
   border-radius: 10px;
   line-height: 1.5;
   cursor: pointer;
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .card-container img {
@@ -97,4 +115,8 @@ main {
   padding-top: 0.5rem;
   padding-left: 1.5rem;
   padding-bottom: 2rem;
+}
+
+.info-font {
+  font-weight: 300;
 }

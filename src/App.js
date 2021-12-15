@@ -2,19 +2,29 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Card from "./Card";
 import Details from "./Details";
+import useFetch from "./useFetch";
 
 function App() {
   const [countryList, setCountryList] = useState([]);
+  const [searchResult, setSearchResult] = useState(null);
+  const [query, setQuery] = useState("");
 
-  const fetchData = async () => {
+  const fetchAll = async () => {
     const baseUrl = "https://restcountries.com/v3.1/";
     const response = await fetch(`${baseUrl}/all`);
     const data = await response.json();
     setCountryList(data);
   };
 
+  const fetchQuery = async () => {
+    const baseUrl = "https://restcountries.com/v3.1/";
+    const response = await fetch(`${baseUrl}/name/${query}`);
+    const data = await response.json();
+    setSearchResult(data);
+  };
+
   useEffect(() => {
-    fetchData();
+    fetchAll();
   }, []);
 
   return (
@@ -30,8 +40,22 @@ function App() {
       </header>
       <section>
         <div className="search-input">
-          <i className="fas fa-search"></i>
-          <input type="text" placeholder="Search for a country..." />
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              fetchQuery();
+            }}
+          >
+            <button className="search-input-btn">
+              <i className="fas fa-search"></i>
+            </button>
+            <input
+              type="text"
+              placeholder="Search for a country..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </form>
         </div>
         <div className="filter-input">
           <select name="" id="">
@@ -45,18 +69,31 @@ function App() {
         </div>
       </section>
       <main>
-        {countryList.map((country) => {
-          return (
-            <Card
-              key={country.cca3}
-              name={country.name.common}
-              population={country.population}
-              region={country.continents[0]}
-              capital={country.capital}
-              imgSrc={country.flags.png}
-            />
-          );
-        })}
+        {searchResult
+          ? searchResult.map((country) => {
+              return (
+                <Card
+                  key={country.cca3}
+                  name={country.name.common}
+                  population={country.population}
+                  region={country.continents[0]}
+                  capital={country.capital}
+                  imgSrc={country.flags.png}
+                />
+              );
+            })
+          : countryList.map((country) => {
+              return (
+                <Card
+                  key={country.cca3}
+                  name={country.name.common}
+                  population={country.population}
+                  region={country.continents[0]}
+                  capital={country.capital}
+                  imgSrc={country.flags.png}
+                />
+              );
+            })}
       </main>
     </div>
   );
