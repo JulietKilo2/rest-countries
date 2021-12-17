@@ -1,8 +1,8 @@
 import React from "react";
 
-function Card({ name, population, region, capital, imgSrc }) {
+function Card({ id, name, population, region, capital, imgSrc, findCountry }) {
   return (
-    <div className="card-container">
+    <div className="card-container" onClick={() => findCountry(id)}>
       <img src={imgSrc} alt={`${name} national flag image`} />
       <div className="card-info">
         <h2>{name}</h2>

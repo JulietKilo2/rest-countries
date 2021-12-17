@@ -36,7 +36,9 @@ function App() {
   };
 
   const fetchRegion = () => {
-    if (region.length >= 1) {
+    if (region === "All") {
+      setDisplayedList(countryList);
+    } else if (region.length >= 1) {
       const newList = countryList.filter((country) => {
         return country.region === region;
       });
@@ -49,6 +51,13 @@ function App() {
     setDisplayedList(countryList);
     setQuery("");
     setRegion("");
+  };
+
+  const findCountry = (id) => {
+    const target = countryList.find((country) => {
+      return country.cca3 === id;
+    });
+    console.log(target);
   };
 
   useEffect(() => {
@@ -65,10 +74,8 @@ function App() {
       <header>
         <h1 onClick={resetList}>Where in the world?</h1>
         <div className="darkmode-container">
-          <span>
-            <i className="far fa-moon"></i>
-          </span>
-          <span>Dark Mode</span>
+          <i className="far fa-moon"></i>
+          Dark Mode
         </div>
       </header>
       <section>
@@ -99,6 +106,7 @@ function App() {
             }}
           >
             <option value="">Filter by Region</option>
+            <option value="All">All</option>
             <option value="Africa">Africa</option>
             <option value="Americas">America</option>
             <option value="Asia">Asia</option>
@@ -112,11 +120,13 @@ function App() {
           return (
             <Card
               key={country.cca3}
+              id={country.cca3}
               name={country.name.common}
               population={country.population}
               region={country.continents[0]}
               capital={country.capital}
               imgSrc={country.flags.png}
+              findCountry={findCountry}
             />
           );
         })}
