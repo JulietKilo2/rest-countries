@@ -2,13 +2,20 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Card from "./Card";
 import Details from "./Details";
-import useFetch from "./useFetch";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
 
 function App() {
   const [countryList, setCountryList] = useState([]);
   const [displayedList, setDisplayedList] = useState([]);
   const [query, setQuery] = useState("");
   const [region, setRegion] = useState("");
+  const [detailsInfo, setDetailsInfo] = useState(null);
 
   const fetchAll = async () => {
     const baseUrl = "https://restcountries.com/v3.1/";
@@ -57,7 +64,11 @@ function App() {
     const target = countryList.find((country) => {
       return country.cca3 === id;
     });
-    console.log(target);
+    setDetailsInfo(target);
+  };
+
+  const linkHandler = () => {
+    console.log("relocate url");
   };
 
   useEffect(() => {
@@ -78,59 +89,67 @@ function App() {
           Dark Mode
         </div>
       </header>
-      <section>
-        <div className="search-input">
-          <form
-            onSubmit={(e) => {
-              fetchQuery(e);
-            }}
-          >
-            <button className="search-input-btn">
-              <i className="fas fa-search"></i>
-            </button>
-            <input
-              type="text"
-              placeholder="Search for a country..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-          </form>
-        </div>
-        <div className="filter-input">
-          <select
-            name=""
-            id=""
-            value={region}
-            onChange={(e) => {
-              setRegion(e.target.value);
-            }}
-          >
-            <option value="">Filter by Region</option>
-            <option value="All">All</option>
-            <option value="Africa">Africa</option>
-            <option value="Americas">America</option>
-            <option value="Asia">Asia</option>
-            <option value="Europe">Europe</option>
-            <option value="Oceania">Oceania</option>
-          </select>
-        </div>
-      </section>
-      <main>
-        {displayedList.map((country) => {
-          return (
-            <Card
-              key={country.cca3}
-              id={country.cca3}
-              name={country.name.common}
-              population={country.population}
-              region={country.continents[0]}
-              capital={country.capital}
-              imgSrc={country.flags.png}
-              findCountry={findCountry}
-            />
-          );
-        })}
-      </main>
+      <Switch>
+        <Route exact path="/">
+          <section>
+            <div className="search-input">
+              <form
+                onSubmit={(e) => {
+                  fetchQuery(e);
+                }}
+              >
+                <button className="search-input-btn">
+                  <i className="fas fa-search"></i>
+                </button>
+                <input
+                  type="text"
+                  placeholder="Search for a country..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+              </form>
+            </div>
+            <div className="filter-input">
+              <select
+                name=""
+                id=""
+                value={region}
+                onChange={(e) => {
+                  setRegion(e.target.value);
+                }}
+              >
+                <option value="">Filter by Region</option>
+                <option value="All">All</option>
+                <option value="Africa">Africa</option>
+                <option value="Americas">America</option>
+                <option value="Asia">Asia</option>
+                <option value="Europe">Europe</option>
+                <option value="Oceania">Oceania</option>
+              </select>
+            </div>
+          </section>
+          <main>
+            {displayedList.map((country) => {
+              return (
+                <Card
+                  key={country.cca3}
+                  id={country.cca3}
+                  name={country.name.common}
+                  population={country.population}
+                  region={country.continents[0]}
+                  capital={country.capital}
+                  imgSrc={country.flags.png}
+                  findCountry={findCountry}
+                  linkHandler={linkHandler}
+                />
+              );
+            })}
+          </main>
+        </Route>
+        <Route path="/details/:id">
+          <Details detailsInfo={detailsInfo} />
+        </Route>
+      </Switch>
     </div>
   );
 }
