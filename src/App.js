@@ -2,20 +2,13 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Card from "./Card";
 import Details from "./Details";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 function App() {
   const [countryList, setCountryList] = useState([]);
   const [displayedList, setDisplayedList] = useState([]);
   const [query, setQuery] = useState("");
   const [region, setRegion] = useState("");
-  const [detailsInfo, setDetailsInfo] = useState(null);
 
   const fetchAll = async () => {
     const baseUrl = "https://restcountries.com/v3.1/";
@@ -58,17 +51,6 @@ function App() {
     setDisplayedList(countryList);
     setQuery("");
     setRegion("");
-  };
-
-  const findCountry = (id) => {
-    const target = countryList.find((country) => {
-      return country.cca3 === id;
-    });
-    setDetailsInfo(target);
-  };
-
-  const linkHandler = () => {
-    console.log("relocate url");
   };
 
   useEffect(() => {
@@ -139,15 +121,13 @@ function App() {
                   region={country.continents[0]}
                   capital={country.capital}
                   imgSrc={country.flags.png}
-                  findCountry={findCountry}
-                  linkHandler={linkHandler}
                 />
               );
             })}
           </main>
         </Route>
         <Route path="/details/:id">
-          <Details detailsInfo={detailsInfo} />
+          <Details />
         </Route>
       </Switch>
     </div>

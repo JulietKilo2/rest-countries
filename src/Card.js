@@ -1,24 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Card({
-  id,
-  name,
-  population,
-  region,
-  capital,
-  imgSrc,
-  findCountry,
-  linkHandler,
-}) {
-  const cardEvtHandler = () => {
-    findCountry(id);
-    linkHandler();
-  };
-
+function Card({ id, name, population, region, capital, imgSrc }) {
   return (
-    <Link to={`/details/${id}`}>
-      <div className="card-container" onClick={cardEvtHandler}>
+    <div className="card-container">
+      <Link
+        to={`/details/${id}`}
+        style={{ textDecoration: "none", color: "black" }}
+      >
         <img src={imgSrc} alt={`${name} national flag image`} />
         <div className="card-info">
           <h2>{name}</h2>
@@ -34,8 +23,8 @@ function Card({
             Capital: <span className="info-font">{capital}</span>
           </p>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
 
