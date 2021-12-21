@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Card from "./Card";
 import Details from "./Details";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 
 function App() {
   const [countryList, setCountryList] = useState([]);
@@ -65,7 +65,11 @@ function App() {
   return (
     <div className="app">
       <header>
-        <h1 onClick={resetList}>Where in the world?</h1>
+        <h1 onClick={resetList}>
+          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+            Where in the world?
+          </Link>
+        </h1>
         <div className="darkmode-container">
           <i className="far fa-moon"></i>
           Dark Mode

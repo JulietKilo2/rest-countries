@@ -182,3 +182,18 @@ main {
 .details-text span {
   font-weight: 300;
 }
+
+.details-border {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.border-country {
+  background-color: white;
+  border-radius: 5px;
+  padding: 3.5px;
+  margin: 4.5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  cursor: pointer;
+}

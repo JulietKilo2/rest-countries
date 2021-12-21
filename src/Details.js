@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 
 function Details() {
-  const country = useParams();
+  const { id } = useParams();
   const history = useHistory();
   const [detailsInfo, setDetailsInfo] = useState(null);
   const [langs, setLangs] = useState(null);
   const [curr, setCurr] = useState(null);
+  const [border, setBorder] = useState(null);
 
   useEffect(() => {
-    fetch(`https://restcountries.com/v3.1/alpha/${country.id}`)
+    fetch(`https://restcountries.com/v3.1/alpha/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data[0]);
         setDetailsInfo(data[0]);
       });
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (detailsInfo) {
@@ -29,9 +29,29 @@ function Details() {
     return;
   }, [detailsInfo]);
 
+  useEffect(() => {
+    if (detailsInfo) {
+      if (detailsInfo.borders) {
+        let list = detailsInfo.borders.map((item) => item).join(",");
+        fetch(`https://restcountries.com/v3.1/alpha?codes=${list}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setBorder(data);
+          });
+      }
+      return;
+    }
+    return;
+  }, [detailsInfo]);
+
   return (
     <div className="details">
-      <button className="details-back-btn" onClick={() => history.goBack()}>
+      <button
+        className="details-back-btn"
+        onClick={() => {
+          history.goBack();
+        }}
+      >
         <i className="fas fa-long-arrow-alt-left"></i>
         Back
       </button>
@@ -72,9 +92,23 @@ function Details() {
                 Languages: <span>{langs && langs.join(", ")}</span>
               </p>
             </div>
-            <div className="details-border">
-              <p>Border Countries:</p>
-            </div>
+            {border && (
+              <div className="details-border">
+                <span>Border Countries: </span>
+                {border.map((item) => {
+                  return (
+                    <span className="border-country" key={item.cca3}>
+                      <Link
+                        to={`/details/${item.cca3}`}
+                        style={{ textDecoration: "none", color: "black" }}
+                      >
+                        {item.name.common}
+                      </Link>
+                    </span>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       )}
