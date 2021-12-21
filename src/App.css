@@ -1,3 +1,5 @@
+/* Global properties */
+
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
 
 body {
@@ -14,6 +16,8 @@ p {
   font-weight: 600;
 }
 
+/* Header */
+
 header {
   display: flex;
   justify-content: space-between;
@@ -24,13 +28,27 @@ header {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
-header h1 {
+.site-title {
   cursor: pointer;
 }
 
 .darkmode-container {
   font-size: 16px;
 }
+
+@media only screen and (max-width: 650px) {
+  header {
+    padding: 1rem 2rem;
+  }
+  .site-title {
+    font-size: 1.25rem;
+  }
+  .darkmode-container {
+    font-size: 12px;
+  }
+}
+
+/* Search & filter section */
 
 section {
   background-color: hsl(0, 0%, 98%);
@@ -86,6 +104,32 @@ section {
   padding: 1rem;
 }
 
+@media only screen and (max-width: 700px) {
+  section {
+    flex-direction: column;
+    margin: 2rem;
+    align-items: flex-start;
+  }
+  .search-input {
+    width: 90%;
+  }
+  .filter-input {
+    margin-top: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  section {
+    /* align-items: center; */
+    margin: 1.5rem 0 0 1rem;
+  }
+  .search-input input {
+    font-size: 1rem;
+  }
+}
+
+/* Main display section */
+
 main {
   margin-top: 2rem;
   display: flex;
@@ -124,11 +168,26 @@ main {
   font-weight: 300;
 }
 
+@media only screen and (max-width: 400px) {
+  main {
+    margin-top: 1rem;
+  }
+  .card-container {
+    margin-top: 2.5rem;
+    max-width: 310px;
+  }
+  .card-container img {
+    max-width: 310px;
+  }
+}
+
 /* Details */
+
 .details {
   width: 70vw;
   margin: 0 auto;
 }
+
 .details-back-btn {
   width: 150px;
   font-size: 20px;
@@ -139,6 +198,7 @@ main {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   cursor: pointer;
 }
+
 .fa-long-arrow-alt-left {
   margin: 0 8px;
 }
@@ -162,12 +222,15 @@ main {
   display: flex;
   flex-direction: column;
 }
+
 .details-info h3 {
   font-size: 2rem;
 }
+
 .details-border {
   margin-top: 2rem;
 }
+
 .details-langs {
   margin: 2px;
   padding: 5px;
@@ -175,6 +238,7 @@ main {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   border-radius: 5px;
 }
+
 .details-text {
   font-weight: 600;
 }
@@ -189,11 +253,33 @@ main {
   align-items: center;
 }
 
+.border-title {
+  font-weight: 600;
+}
+
 .border-country {
   background-color: white;
-  border-radius: 5px;
-  padding: 3.5px;
-  margin: 4.5px;
+  border-radius: 2.5px;
+  padding: 1.5px 2.5px;
+  margin: 3.5px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1080px) {
+  .details {
+    width: 90vw;
+  }
+}
+
+@media only screen and (max-width: 860px) {
+  .details-container {
+    flex-direction: column;
+  }
+  .details-container img {
+    width: 80%;
+  }
+  .details-info {
+    margin: 1rem;
+  }
 }

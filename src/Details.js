@@ -94,7 +94,7 @@ function Details() {
             </div>
             {border && (
               <div className="details-border">
-                <span>Border Countries: </span>
+                <span className="border-title">Border Countries: </span>
                 {border.map((item) => {
                   return (
                     <span className="border-country" key={item.cca3}>

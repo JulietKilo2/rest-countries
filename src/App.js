@@ -65,11 +65,11 @@ function App() {
   return (
     <div className="app">
       <header>
-        <h1 onClick={resetList}>
-          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+        <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+          <h1 className="site-title" onClick={resetList}>
             Where in the world?
-          </Link>
-        </h1>
+          </h1>
+        </Link>
         <div className="darkmode-container">
           <i className="far fa-moon"></i>
           Dark Mode
