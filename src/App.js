@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import "./App.css";
-import Card from "./Card";
-import Details from "./Details";
 import { Switch, Route, Link } from "react-router-dom";
+import List from "./List";
+import Details from "./Details";
+import "./App.css";
+import SearchNav from "./SearchNav";
 
 function App() {
-  const [countryList, setCountryList] = useState([]);
+  const [countryList, setCountryList] = useState(null);
   const [displayedList, setDisplayedList] = useState([]);
   const [query, setQuery] = useState("");
   const [region, setRegion] = useState("");
@@ -19,6 +20,10 @@ function App() {
   };
 
   const fetchQuery = (e) => {
+    // This function does:
+    // 1. looks for countries that includes the query value in their 'common' names.
+    // 2. checks if the query value also matches some of the 'alternative' names.
+    // *'common' and 'alternative' values are preset values of REST countries API.*
     e.preventDefault();
     setRegion("");
     const result = countryList.filter((country) => {
@@ -36,6 +41,7 @@ function App() {
   };
 
   const fetchRegion = () => {
+    // This function changes the list of countries to be displayed based on region.
     if (region === "All") {
       setDisplayedList(countryList);
     } else if (region.length >= 1) {
@@ -48,16 +54,23 @@ function App() {
   };
 
   const resetList = () => {
+    // This function gets triggered when user clicks on the title.
     setDisplayedList(countryList);
     setQuery("");
     setRegion("");
   };
 
   useEffect(() => {
-    fetchAll();
+    // This useEffect fetches all data as the app runs for the first time.
+    if (!countryList) {
+      fetchAll();
+    }
+    return;
   }, []);
 
   useEffect(() => {
+    // This useEffect is triggered when user changes regional filter.
+    // It regets query and triggers the function that changes the list of countries based on filter result.
     setQuery("");
     fetchRegion();
   }, [region]);
@@ -70,65 +83,21 @@ function App() {
             Where in the world?
           </h1>
         </Link>
-        <div className="darkmode-container">
+        {/* <div className="darkmode-container">
           <i className="far fa-moon"></i>
           Dark Mode
-        </div>
+        </div> */}
       </header>
       <Switch>
         <Route exact path="/">
-          <section>
-            <div className="search-input">
-              <form
-                onSubmit={(e) => {
-                  fetchQuery(e);
-                }}
-              >
-                <button className="search-input-btn">
-                  <i className="fas fa-search"></i>
-                </button>
-                <input
-                  type="text"
-                  placeholder="Search for a country..."
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                />
-              </form>
-            </div>
-            <div className="filter-input">
-              <select
-                name=""
-                id=""
-                value={region}
-                onChange={(e) => {
-                  setRegion(e.target.value);
-                }}
-              >
-                <option value="">Filter by Region</option>
-                <option value="All">All</option>
-                <option value="Africa">Africa</option>
-                <option value="Americas">America</option>
-                <option value="Asia">Asia</option>
-                <option value="Europe">Europe</option>
-                <option value="Oceania">Oceania</option>
-              </select>
-            </div>
-          </section>
-          <main>
-            {displayedList.map((country) => {
-              return (
-                <Card
-                  key={country.cca3}
-                  id={country.cca3}
-                  name={country.name.common}
-                  population={country.population}
-                  region={country.continents[0]}
-                  capital={country.capital}
-                  imgSrc={country.flags.png}
-                />
-              );
-            })}
-          </main>
+          <SearchNav
+            query={query}
+            setQuery={setQuery}
+            region={region}
+            setRegion={setRegion}
+            fetchQuery={fetchQuery}
+          />
+          <List displayedList={displayedList} />
         </Route>
         <Route path="/details/:id">
           <Details />

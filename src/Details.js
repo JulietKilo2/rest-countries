@@ -97,14 +97,15 @@ function Details() {
                 <span className="border-title">Border Countries: </span>
                 {border.map((item) => {
                   return (
-                    <span className="border-country" key={item.cca3}>
-                      <Link
-                        to={`/details/${item.cca3}`}
-                        style={{ textDecoration: "none", color: "black" }}
-                      >
+                    <Link
+                      to={`/details/${item.cca3}`}
+                      style={{ textDecoration: "none", color: "black" }}
+                      key={item.cca3}
+                    >
+                      <span className="border-country" key={item.cca3}>
                         {item.name.common}
-                      </Link>
-                    </span>
+                      </span>
+                    </Link>
                   );
                 })}
               </div>
